@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="osssitetool" default="zip">
+    <property name="basedir" value="." />
+    <property name="workdir" value="${basedir}/work" />
+    <property name="distdir" value="${basedir}/dist" />
+    <property name="srcdir" value="${basedir}/src" />
+    <property name="classes" value="${workdir}/classes" />
+    <property name="resources" value="${basedir}/resources" />
+    <property name="archivetop" value="osssitetool"/>
+
+    <target name="zip" description="main (make by zip)">
+        <antcall target="initialize" />
+        <antcall target="compile" />
+        <antcall target="jar">
+            <param name="method" value="zip" />
+        </antcall>
+        <antcall target="copy">
+            <param name="method" value="zip" />
+        </antcall>
+        <zip destfile="${distdir}/${archivetop}.zip" basedir="${workdir}/zip" />
+        <antcall target="finalize" />
+    </target>
+
+    <target name="gzip" description="main (make by gzip)">
+        <antcall target="initialize" />
+        <antcall target="compile" />
+        <antcall target="jar">
+            <param name="method" value="gzip" />
+        </antcall>
+        <antcall target="copy">
+            <param name="method" value="gzip" />
+        </antcall>
+        <tar destfile="${distdir}/${archivetop}.tar.gz" basedir="${workdir}/gzip" compression="gzip" />
+        <antcall target="finalize" />
+    </target>
+
+    <target name="initialize">
+        <delete dir="${workdir}" />
+        <delete dir="${distdir}" />
+        <mkdir dir="${classes}" />
+    </target>
+
+    <target name="compile">
+        <javac srcdir="${srcdir}" destdir="${classes}" includeantruntime="false" />
+    </target>
+
+    <target name="jar">
+        <jar destfile="${workdir}/${method}/${archivetop}/${archivetop}.jar" basedir="${classes}" />
+        <jar destfile="${workdir}/${method}/${archivetop}/${archivetop}-source.jar" basedir="./src" />
+    </target>
+
+    <target name="copy">
+        <copy todir="${workdir}/${method}/${archivetop}">
+            <fileset dir="${resources}" />
+        </copy>
+    </target>
+
+    <target name="finalize">
+        <delete dir="${workdir}" />
+    </target>
+</project>
