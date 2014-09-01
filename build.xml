@@ -45,7 +45,11 @@
     </target>
 
     <target name="jar">
-        <jar destfile="${workdir}/${method}/${archivetop}/${archivetop}.jar" basedir="${classes}" />
+        <jar destfile="${workdir}/${method}/${archivetop}/${archivetop}.jar" basedir="${classes}">
+            <manifest>
+                <attribute name="Main-Class" value="jp.co.beacon_it.osssitetool.Main" />
+            </manifest>
+        </jar>
         <jar destfile="${workdir}/${method}/${archivetop}/${archivetop}-source.jar" basedir="./src" />
     </target>
 
