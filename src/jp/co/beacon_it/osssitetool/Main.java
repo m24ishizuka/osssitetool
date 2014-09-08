@@ -21,7 +21,7 @@ public class Main {
             String oldCSVName = prop.getProperty("old_csv_name");
             String newCSVName = prop.getProperty("new_csv_name");
             String orderPatterns[] = prop.getProperty("order_patterns").split(",");
-            boolean isUseCSVHeader = "true".equals(prop.getProperty("use_csv_header")) ? true : false;
+            boolean isUseCSVHeader = "true".equals(prop.getProperty("use_csv_header"));
             
             FileInfoCSVMaker ficm = new FileInfoCSVMaker(dirPath, oldCSVName, newCSVName, orderPatterns, isUseCSVHeader);
             
