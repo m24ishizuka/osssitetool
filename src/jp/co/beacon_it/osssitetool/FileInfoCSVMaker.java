@@ -119,7 +119,7 @@ public class FileInfoCSVMaker {
             byte[] b = md5.digest();
             hashValue = new StringBuffer();
             for (int i = 0, end = b.length; i < end; i++) {
-                hashValue.append(Integer.toHexString(b[i] & 0xff));
+                hashValue.append(String.format("%02x", b[i] & 0xff));
             }
         } finally {
             if (in != null) {
